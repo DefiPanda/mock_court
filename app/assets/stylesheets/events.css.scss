@@ -1,0 +1,44 @@
+.calendar td { height: 100px; width: 14.28%; }
+
+.container {
+	width: 60%;
+	margin-left: 20%;
+	margin-top: 50px;
+}
+
+#add_event_link {
+	margin-left: 30px;
+	display: inline-block;
+}
+
+.post_username {
+	background-color: #D1DFEF;
+	color: #2968A1;
+	padding: 0.3em;
+	font: bold 1.4em Arial,Tahoma,Calibri,Verdana,Geneva,sans-serif;
+}
+
+textarea {
+	width: 100%;
+}
+
+.post_title {
+	background-color: #e9e9e9;
+	padding: 10px;
+	padding-left: 0;
+}
+
+.post_wrapper {
+	margin-top: 20px;
+}
+
+.meta {
+	color: #333;
+}
+
+ul a:link{
+	text-decoration:none;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 13px;
+	line-height: 18px;
+}

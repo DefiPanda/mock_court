@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mock Court</title>
+  <%= favicon_link_tag 'favicon.png' %>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application", "http://localhost:9292/faye.js" %>
+  <%= csrf_meta_tags %>
+  <meta name="robots" content="all">
+  <meta name="description" content="The most comprehensive event calendar for triangle startup and tech meetings.">
+  <meta name="author" content="Jack Wang">
+  <meta name="keywords" content="triangletech, triangle, tech, startup">
+  <%= analytics_init if Rails.env.production? %>
+</head>
+<body>
+
+<% flash.each do |key, value| %>
+  <% if value != "You are already signed in." %>
+    <div class="<%= flash_class(key) %>">
+          <%= value %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= yield %>
+
+</body>
+</html>

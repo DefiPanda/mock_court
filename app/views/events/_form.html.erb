@@ -1,0 +1,23 @@
+<%= form_for @event do |f| %>
+  <% if @event.errors.any? %>
+    <h2>Errors:</h2>
+    <ul>
+      <% @event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <%= f.hidden_field :username, :value => current_user.username  %>
+  <p>
+    <%= f.label :title %>
+    <%= f.text_field :title%>
+  </p>
+  <%= f.hidden_field :date, :value => Time.now  %>
+  <p>
+  	<%= f.label :content %>
+    <%= f.text_area :content%>
+  </p>
+  <p>
+    <%= f.submit @submit_text %>
+  </p>
+<% end %>

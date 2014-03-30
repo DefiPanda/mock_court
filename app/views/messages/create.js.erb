@@ -1,0 +1,34 @@
+//public cases
+<% if @message.approved.blank? == false || User.find_by_judge(true).nil? || User.find_by_username(current_user.username).judge?%>
+  <% broadcast "/messages/new" do %>
+     <%  puts '!!!!!!!!!!!!!!!!!!!!!everyone can see\n\n\n\n\n\n\n\n\n'%>
+	  <% display = "" %>
+   <% content = escape_javascript @message.content %>
+   <% if @message.content.match('^\d\d:\d\d').nil? %>
+     <% username = escape_javascript @message.username %>
+     <% time = @message.created_at.strftime("%H:%M") %>
+     <% display = time + " " + username + ": " + content %>
+   <% else %>
+     <% display = content %>
+   <% end %>
+	  $("#chat").append("<li><%=display%><ul>");
+  <% end %>
+//private pending request
+<% else %>
+  	<% broadcast "/messages/private/" + User.find_by_judge(true).username do %>
+  	<% puts '!!!!!!!!!!!!!!!!!!!!!!!!!only judge can see\n\n\n\n\n\n\n\n\n'%>
+  	<% puts "/messages/private/" + User.find_by_judge(true).username %>
+   <% time = @message.created_at.strftime("%H:%M") %>
+    <% username = escape_javascript @message.username %>
+    <% content = escape_javascript @message.content %>
+    <% display = time + " " + username + ": " +content %>
+   
+   $("#chat").append("<div id='pending_content'><%=display%></div>");
+
+   
+   $("#chat").append("<button id='accept_reply'>Approve</button>");
+   $("#chat").append("<button id='deny_reply'>Deny</button>");
+ <% end %>
+<% end %>
+
+$("#new_message")[0].reset();

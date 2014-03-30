@@ -1,0 +1,46 @@
+<div>
+  <% if user_signed_in? %>
+    Hi, <%= current_user.username %>
+    <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+  <% else %>
+    <%= link_to "Sign up", new_user_registration_path %> |
+    <%= link_to "Login", new_user_session_path %>
+  <% end %>
+</div>
+
+<ul>
+<% @event.each do |event| %>
+ <% if event.approved %>
+  <%= link_to event do %>
+    <div class = "post_wrapper" href="">
+      <div class = "post_content">
+        <div class = "post_title">
+          <%= event.title %> <div class="meta"> Poster: <%= event.username %> Post date: <%= event.date %> </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+ <% elsif User.find_by_username(current_user.username).judge? || current_user.username == event.username%>
+  <%= link_to event do %>
+    <div class = "post_wrapper" href="">
+      <div class = "post_content">
+        <div class = "post_title">
+          <%= event.title %> 
+          <div class="meta">
+            Poster: <%= event.username %> Post date: <%= event.date %>
+            <% if User.find_by_username(current_user.username).judge? %>
+              <%= form_for event do |f| %>
+                <%= f.radio_button :approved, "1" %>
+                <%= f.submit "Approve" %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+ <% end %>
+<% end %>
+</ul>
+
+<%= link_to 'New Post', new_event_path %>
